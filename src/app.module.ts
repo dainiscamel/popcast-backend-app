@@ -10,12 +10,15 @@ import { UsersModule } from "./users/users.module";
 import { JwtModule } from "./jwt/jwt.module";
 import { JwtMiddleware } from "./jwt/jwt.middleware";
 import { AuthModule } from "./auth/auth.module";
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: "sqlite",
-      database: "db.sqlite3",
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: true,
       logging: process.env.NODE_ENV !== "test",
       entities: [Podcast, Episode, User, Review]
